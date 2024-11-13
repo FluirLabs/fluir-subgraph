@@ -1,0 +1,75 @@
+type Stream @entity {
+  id: ID!
+  streamId: BigInt!
+  sender: String!
+  recipient: String!
+  deposit: BigInt!
+  tokenAddress: String!
+  startTime: BigInt!
+  stopTime: BigInt!
+  interval: BigInt!
+  cliffAmount: BigInt!
+  cliffTime: BigInt!
+  autoWithdrawInterval: BigInt!
+  autoWithdraw: Boolean!
+  pauseable: Boolean!
+  closeable: Boolean!
+  recipientModifiable: Boolean!
+}
+
+# type Stream {
+#   id: String
+#   name: String
+#   stream_type: String
+#   asset_type: String
+#   escrow_address: String
+#   sender: String
+#   recipient: String
+#   interval: BigInt
+#   remark: String
+#   rate_per_interval: BigInt
+#   start_time: Int
+#   stop_time: BigInt
+#   last_withdraw_time: Int
+#   create_at: Int
+#   deposit_amount: BigInt
+#   withdrawn_amount: BigInt
+#   remaining_amount: BigInt
+#   status: String
+#   auto_withdraw: Boolean
+#   auto_withdraw_interval: BigInt
+#   cliff_amount: BigInt
+#   cliff_done: Boolean
+#   cliff_time: Int
+#   closed: Boolean
+#   is_coin_stream: Boolean
+#   pause_info: PauseInfo
+#   feature_info: FeatureInfo
+#   signer_cap: SignerCap
+# }
+
+# type SignerCap @entity {
+#   stream_id: String
+#   account: String
+# }
+
+# type PauseInfo @entity {
+#   stream_id: String
+#   pause_at: Int
+#   acc_paused_time: Int
+#   pause_by: String
+#   paused: Boolean
+# }
+
+# type FeatureInfo @entity {
+#   stream_id: String
+#   closeable: String
+#   pauseable: String
+#   recipient_modifiable: String
+# }
+
+type RegisteredToken @entity {
+  id: ID!
+  tokenAddress: String!
+  feeRate: BigInt!
+}
