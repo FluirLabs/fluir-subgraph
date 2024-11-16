@@ -9,6 +9,20 @@ This Subgraph retrieves data from events emitted by Fluir's Contracts deployed o
 - [Node.js](https://nodejs.org/en/) 
 - [Goldsky Account](https://app.goldsky.com/)
 
+### Clone the repository
+``` 
+git clone https://github.com/FluirLabs/fluir-subgraph
+cd fluir-subgraph
+```
+
+
+
+ ### Install dependencies
+
+```
+npm install
+```
+
 #### CLI Installation
 
 ```bash
@@ -25,7 +39,7 @@ goldsky login
 
 ### 1. Deploying from Source code:
 
-In your existing Subgraph project directory, run the following commands:
+In the Fluir Subgraph project directory, run the following commands:
 
 ```bash
 # Generate the subgraph code with graph cli
