@@ -1,26 +1,59 @@
 type Stream @entity {
-  id: ID!
-  streamId: BigInt!
+  id: ID! # stream id
   sender: String!
   recipient: String!
-  deposit: BigInt!
-  tokenAddress: String!
+  deposit: BigDecimal!
+  token: TokenRegister!
   startTime: BigInt!
   stopTime: BigInt!
   interval: BigInt!
-  cliffAmount: BigInt!
+  cliffAmount: BigDecimal!
   cliffTime: BigInt!
   autoWithdrawInterval: BigInt!
+  ratePerInterval: BigDecimal!
+  withdrawnBalance: BigDecimal!
+  feeBalance: BigDecimal!
+  remainingBalance: BigDecimal!
+  lastWithdrawTime: BigInt!
+  createAt: BigInt!
+  pauseAt: BigInt!
+  pauseBy: Bytes!
+  accPauseTime: BigInt!
   autoWithdraw: Boolean!
-  pauseable: Boolean!
-  closeable: Boolean!
-  recipientModifiable: Boolean!
+  closed: Boolean!
+  cliffDone: Boolean!
+  isPaused: Boolean!
+  pauseable: String!
+  closeable: String!
+  recipientModifiable: String!
+  
+}
+
+type TokenRegister @entity {
+  id : ID!
+  name: String!
+  symbol: String!
+  decimals: Int!
+  tokenAddress: String!
+  feeRate: BigInt!
+  depositBalance: BigDecimal!
+  withdrawnBalance: BigDecimal!
+  feeBalance: BigDecimal!
+  remainingBalance: BigDecimal!
+  log: [RegisteredTokenLog!]! @derivedFrom(field:token)
+  stream:[Stream!]! @derivedFrom(field:token)
+
 }
 
 
 
-type RegisteredToken @entity {
+type RegisteredTokenLog @entity {
   id: ID!
   tokenAddress: String!
   feeRate: BigInt!
+  timestamp: BigInt!
+  token:TokenRegister
+
 }
+
+
