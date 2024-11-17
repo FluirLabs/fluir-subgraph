@@ -1,5 +1,5 @@
 # Fluir Subgraph 
-This Subgraph retrieves data from events emitted by Fluir's Contracts deployed on Taiko Helka Testnet.
+This Subgraph retrieves data from events emitted by Fluir's Contracts deployed on Taiko Hekla Testnet.
 
 
 ##  Getting Started
@@ -36,13 +36,14 @@ curl -fsSL https://cli.goldsky.com/install | bash
 # Login to Goldsky and paste your API key when prompted
 goldsky login
 ```
-
+a
 ### 1. Deploying from Source code:
 
 In the Fluir Subgraph project directory, run the following commands:
 
 ```bash
 # Generate the subgraph code with graph cli
+prepare:taiko-hekla
 graph codegen
 
 # Build the subgraph
