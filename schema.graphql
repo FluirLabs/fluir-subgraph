@@ -40,9 +40,10 @@ type TokenRegister @entity {
   withdrawnBalance: BigDecimal!
   feeBalance: BigDecimal!
   remainingBalance: BigDecimal!
-  log: [RegisteredTokenLog!]! @derivedFrom(field:token)
-  stream:[Stream!]! @derivedFrom(field:token)
-
+  
+  # derived fields
+  log: [RegisteredTokenLog!]! @derivedFrom(field: "token") 
+  streams:[Stream!]! @derivedFrom(field: "token")
 }
 
 
