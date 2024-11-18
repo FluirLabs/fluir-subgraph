@@ -1,7 +1,7 @@
 # Fluir Subgraph 
 This Subgraph retrieves data from events emitted by Fluir's Contracts deployed on Taiko Hekla Testnet.
 
-## Fluir Subgraph Endpoint - https://api.goldsky.com/api/public/project_cm3g5brjjwhmp01xo01sm8qy7/subgraphs/fluir-subgraph/1.0.0/gn
+- Fluir Subgraph Endpoint - https://api.goldsky.com/api/public/project_cm3g5brjjwhmp01xo01sm8qy7/subgraphs/fluir-subgraph/1.0.0/gn
 
 ##  Getting Started
 
