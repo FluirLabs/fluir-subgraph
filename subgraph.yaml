@@ -15,7 +15,7 @@ dataSources:
       kind: ethereum/events
       apiVersion: 0.0.6
       language: wasm/assemblyscript
-      entities:
+      entities:     
         - Stream 
         - TokenRegister
         - RegisteredTokenLog
@@ -29,7 +29,7 @@ dataSources:
           handler: handleCreateStream
         - event: TokenRegister(indexed address,uint256)
           handler: handleTokenRegister
-         - event: ExtendStream(indexed uint256,indexed address,uint256,uint256)
+        - event: ExtendStream(indexed uint256,indexed address,uint256,uint256)
           handler: handleExtend
         - event: WithdrawFromStream(indexed uint256,indexed address,uint256)
           handler: handleWithdraw
@@ -40,5 +40,5 @@ dataSources:
         - event: ResumeStream(indexed uint256,indexed address,uint256)
           handler: handleResume
         - event: SetNewRecipient(indexed uint256,indexed address,indexed address)
-          handler: handleSetNewRecipient        
+          handler: handleSetNewRecipient  
       file: ./src/mapping.ts

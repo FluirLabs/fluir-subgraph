@@ -1,4 +1,4 @@
-import { ethereum, BigInt } from "@graphprotocol/graph-ts";
+import { ethereum, BigInt, log ,Address, BigDecimal, bigInt, store} from "@graphprotocol/graph-ts";
 
 import {
   CreateStream as CreateStreamEvent,
@@ -24,32 +24,55 @@ function createEventID(event: ethereum.Event): string {
 }
 
 export  function  handleCreateStream(ev: CreateStreamEvent): void {
-  let stream = new Stream(createEventID(ev));
+ 
+  //token entity
+  let token = TokenRegister.load(ev.params.tokenAddress.toHex())!;
+  if(!token){
+    log.error("[handleCreateStream] Token Does Not Exists{}",[ev.params.tokenAddress.toHex()]);
+  }
 
-  let params = ev.params;
+
+  //locd existing stream entity
+  let stream = Stream.load(ev.params.streamId.toHex());
+  if(stream) {
+    log.error("[handleCreateStream] Stream already exists {}",[ev.params.streamId.toHex()])
+  }
+
+  //convert from bigInt to decimals values 
+  // let streamDeposit = convertTokenToDecimal(ev.params.deposit, token.decimals)
+ 
+  let streamDeposit = convertTokenToDecimal(ev.params.deposit, BigInt.fromI32(token.decimals));
+  let streamCliffAmount = convertTokenToDecimal(ev.params.cliffAmount, BigInt.fromI32(token.decimals));
+
+  //create a new stream
+  stream = new Stream(ev.params.streamId.toHex());
+  stream.deposit = streamDeposit;
+  stream.cliffAmount = streamCliffAmount;
+  stream.cliffTime = ev.params.cliffTime;
+  stream.startTime = ev.params.startTime;
+  stream.stopTime = ev.params.stopTime;
+  stream.interval  = ev.params.interval;
+  stream.autoWithdraw = ev.params.autoWithdraw;
+  stream.autoWithdrawInterval = ev.params.autoWithdrawInterval;
 
 
-  //creating a new stream
-  
-  stream.streamId = params.streamId;
-  stream.sender = params.sender.toHex();
-  stream.recipient = params.recipient.toHex();
-  stream.deposit = params.deposit; //convert to tokenDecimal
-  stream.tokenAddress = params.tokenAddress.toHex();
-  stream.startTime = params.startTime;
-  stream.stopTime = params.stopTime;
-  stream.interval = params.interval;
-  stream.cliffAmount = params.cliffAmount; //convert to tokenDecimal
-  stream.cliffTime = params.cliffTime;
-  stream.autoWithdrawInterval = params.autoWithdrawInterval;
-  stream.ratePerInterval = params.ratePerInterval; //convert to tokenDecimal
-  stream.autoWithdraw = params.autoWithdraw;
-  stream.pauseable = params.pauseable ? true : false;  //convert to boolean
-  stream.closeable = params.closeable ? true : false;   //convert to boolean
-  stream.recipientModifiable = params.recipientModifiable ? true : false;   //convert to boolean
-  stream.save();
+  //stream ratePerInterval  Calculation
+  // formula: deposit / ((stopTime - startTime) / interval)
+
+  stream.ratePerInterval = convertTokenToDecimal(ev.params.deposit.div(ev.params.stopTime.minus(ev.params.startTime).div(ev.params.interval)),
+  BigInt.fromI32(token.decimals)
+)
+
+stream.remainingBalance = streamDeposit;
+stream.createAt = ev.block.timestamp;
+stream.pauseAt = BigInt.fromI32(0);
+
+
+
+stream.save;
 
 }
+
 
 
 export  function  handleTokenRegister(ev: TokenRegisterEvent):void{
