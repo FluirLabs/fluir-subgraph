@@ -28,6 +28,27 @@ export  function  handleCreateStream(ev: CreateStreamEvent): void {
 
   let params = ev.params;
 
+
+  //creating a new stream
+  
+  stream.streamId = params.streamId;
+  stream.sender = params.sender.toHex();
+  stream.recipient = params.recipient.toHex();
+  stream.deposit = params.deposit; //convert to tokenDecimal
+  stream.tokenAddress = params.tokenAddress.toHex();
+  stream.startTime = params.startTime;
+  stream.stopTime = params.stopTime;
+  stream.interval = params.interval;
+  stream.cliffAmount = params.cliffAmount; //convert to tokenDecimal
+  stream.cliffTime = params.cliffTime;
+  stream.autoWithdrawInterval = params.autoWithdrawInterval;
+  stream.ratePerInterval = params.ratePerInterval; //convert to tokenDecimal
+  stream.autoWithdraw = params.autoWithdraw;
+  stream.pauseable = params.pauseable ? true : false;  //convert to boolean
+  stream.closeable = params.closeable ? true : false;   //convert to boolean
+  stream.recipientModifiable = params.recipientModifiable ? true : false;   //convert to boolean
+  stream.save();
+
 }
 
 

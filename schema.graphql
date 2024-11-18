@@ -14,7 +14,7 @@ type Stream @entity {
   withdrawnBalance: BigDecimal!
   feeBalance: BigDecimal!
   remainingBalance: BigDecimal!
-  lastWithdrawTime: BigInt!
+  lastWithdrawTime: BigInt! 
   createAt: BigInt!
   pauseAt: BigInt!
   pauseBy: Bytes!
