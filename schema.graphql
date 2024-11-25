@@ -33,9 +33,9 @@ type TokenRegister @entity {
   id : ID!
   name: String!
   symbol: String!
-  decimals: Int!
+  decimals: BigInt!
   tokenAddress: String!
-  feeRate: BigInt!
+  feeRate: BigDecimal!
   depositBalance: BigDecimal!
   withdrawnBalance: BigDecimal!
   feeBalance: BigDecimal!
@@ -51,7 +51,7 @@ type TokenRegister @entity {
 type RegisteredTokenLog @entity {
   id: ID!
   tokenAddress: String!
-  feeRate: BigInt!
+  feeRate: BigDecimal!
   timestamp: BigInt!
   token:TokenRegister
 

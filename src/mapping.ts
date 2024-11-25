@@ -41,8 +41,8 @@ export  function  handleCreateStream(ev: CreateStreamEvent): void {
   //convert from bigInt to decimals values 
   // let streamDeposit = convertTokenToDecimal(ev.params.deposit, token.decimals)
  
-  let streamDeposit = convertTokenToDecimal(ev.params.deposit, BigInt.fromI32(token.decimals));
-  let streamCliffAmount = convertTokenToDecimal(ev.params.cliffAmount, BigInt.fromI32(token.decimals));
+  let streamDeposit = convertTokenToDecimal(ev.params.deposit, token.decimals);
+  let streamCliffAmount = convertTokenToDecimal(ev.params.cliffAmount, token.decimals);
 
   //create a new stream
   stream = new Stream(ev.params.streamId.toHex());
@@ -58,9 +58,10 @@ export  function  handleCreateStream(ev: CreateStreamEvent): void {
 
   //stream ratePerInterval  Calculation
   // formula: deposit / ((stopTime - startTime) / interval)
+  
 
   stream.ratePerInterval = convertTokenToDecimal(ev.params.deposit.div(ev.params.stopTime.minus(ev.params.startTime).div(ev.params.interval)),
-  BigInt.fromI32(token.decimals)
+  token.decimals
 )
 
 stream.remainingBalance = streamDeposit;
@@ -115,7 +116,7 @@ export  function  handleTokenRegister(ev: TokenRegisterEvent):void{
   token.name = tokenName;
   token.symbol = tokenSymbol;
   token.decimals = tokenDecimals;
-  token.feeRate = convertTokenToDecimal(ev.params.feeRate, BigInt.fromI32(4));
+  token.feeRate = convertTokenToDecimal(ev.params.feeRate , BigInt.fromI32(4));
 
   token.withdrawnBalance = BigDecimal.fromString("0");
   token.feeBalance = BigDecimal.fromString("0");
